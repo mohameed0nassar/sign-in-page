@@ -29,15 +29,27 @@ if (localStorage.getItem("users") != null) {
   } else {
     var box = [];
 }
+if (localStorage.getItem("url") != null) {
+    window.location.pathname= localStorage.getItem("url");
+  } 
 //set data into local
 function setDis(nameKey = "", data = []) {
     localStorage.setItem(nameKey, JSON.stringify(data).toLowerCase());
   }
+function setUrl() {
+   
+    var mainUrl = window.location.pathname
+    localStorage.removeItem("url")
+    localStorage.setItem("url", mainUrl);
+
+
+}
 //simple SPA
 function changePage(x,y,z) {
     x.classList.remove('d-none')
     y.classList.add('d-none')
     z.classList.add('d-none')
+    setUrl()
 }
 //clear after procces
 function clearForm() {
@@ -82,7 +94,6 @@ signUpBtn.addEventListener('click', function () {
         pass: passSignUpInp.value,
         instructor: hintSignUpInp.value
     }
-    console.log(box);
     setDis('users', box)
     for (var i = 0; i < box.length; i++) {
         if (box[i].email == user.email.toLowerCase()) {
@@ -120,9 +131,9 @@ signUpBtn.addEventListener('click', function () {
                 buttons:false,
             })
     
-            console.log("true");
+            
         } else {
-            console.log("false");
+            
             swal({
                 title:'Sign Up Error',
                 icon: 'error',
@@ -261,10 +272,10 @@ getPass.addEventListener('click', function () {
                         dangerMode: true,
                         text: "not valid name"
                     })
-                    console.log(x);
+                   
                 } else {
                     passSignInInp.value = x
-                    console.log(x);
+                    
         
                 }
     })
@@ -294,11 +305,11 @@ userNameSignUpInp.addEventListener('change',function () {
         errorName.innerHTML = ''
         userNameSignUpInp.classList.remove('is-invalid')
         userNameSignUpInp.classList.add('is-valid')
-        console.log('yes');
+       
     } else {
         errorName.innerHTML ='enter your name from 4 to 15 ch starts with capital ch'
         userNameSignUpInp.classList.add('is-invalid')
-        console.log('no');
+        
         
     }
 })
