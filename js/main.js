@@ -168,7 +168,7 @@ function clearValid() {
 
 }
 function emailSignUpInpValid(){
-    var regX = /^[.]{1,50}\@[a-zA-Z]{2,5}\.[a-zA-Z]{1,6}$/;
+    var regX = /^[a-zA-Z0-9($|_|-|.)]{1,50}\@[a-zA-Z]{2,5}\.[a-zA-Z]{1,6}$/;
     if (regX.test(emailSignUpInp.value)) {
        
 
