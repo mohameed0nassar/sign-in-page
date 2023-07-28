@@ -29,9 +29,9 @@ if (localStorage.getItem("users") != null) {
   } else {
     var box = [];
 }
-if (localStorage.getItem("url") != null) {
-    window.location.pathname= localStorage.getItem("url");
-  } 
+// if (localStorage.getItem("url") != null) {
+//     window.location.pathname= localStorage.getItem("url");
+//   } 
 //set data into local
 function setDis(nameKey = "", data = []) {
     localStorage.setItem(nameKey, JSON.stringify(data).toLowerCase());
