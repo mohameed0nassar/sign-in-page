@@ -23,19 +23,23 @@ var emailUp = document.querySelector('.emailUp')
 var passUp = document.querySelector('.passUp')
 //local storage
 var box;
+//get data from local
 if (localStorage.getItem("users") != null) {
     box = JSON.parse(localStorage.getItem("users"));
   } else {
     var box = [];
 }
+//set data into local
 function setDis(nameKey = "", data = []) {
     localStorage.setItem(nameKey, JSON.stringify(data).toLowerCase());
   }
+//simple SPA
 function changePage(x,y,z) {
     x.classList.remove('d-none')
     y.classList.add('d-none')
     z.classList.add('d-none')
 }
+//clear after procces
 function clearForm() {
         userNameSignUpInp.value= ''
         emailSignUpInp.value= ''
@@ -44,16 +48,17 @@ function clearForm() {
         emailSignInInp.value=''
         passSignInInp.value=''
   }
-//SPA
+//to sign in page
 signInSection.addEventListener('click', function () {
     changePage(signIn, signUp, home)
     clearForm()
     clearValid()
-//    errorName.innerHTML = ''
+
    errorName.innerHTML =''
    emailUp.innerHTML =''
    passUp.innerHTML =''
 })
+//to sign up page
 signUpSection.addEventListener('click', function () {
     changePage(signUp,signIn,home)
     clearForm()
@@ -61,13 +66,14 @@ signUpSection.addEventListener('click', function () {
     
 
 })
-
+//loge from profile to sign in
 logOutBtn.addEventListener('click', function () {
     changePage(signIn,home,signUp)
     routeLogo.classList.remove('d-none')
     clearForm()
     clearValid()
 })
+//signing up
 signUpBtn.addEventListener('click', function () {
     clearValid()
     var user = {
@@ -129,6 +135,7 @@ signUpBtn.addEventListener('click', function () {
     }
 
 })
+//signing into profile
 signInBtn.addEventListener('click',function () {
     for (var i = 0; i < box.length; i++) {
         if (box[i].email == emailSignInInp.value.toLowerCase()) {
@@ -155,9 +162,11 @@ signInBtn.addEventListener('click',function () {
     }
 
 })
+//print user name at home page
 function displayUserName(n) {
     document.querySelector('#userNameOutP').innerHTML = n
 }
+//clear after process
 function clearValid() {
     userNameSignUpInp.classList.remove('is-valid','is-invalid');
     emailSignUpInp.classList.remove('is-valid','is-invalid');
@@ -167,6 +176,7 @@ function clearValid() {
     
 
 }
+// validation email to sign up with condation 
 function emailSignUpInpValid(){
     var regX = /^[a-zA-Z0-9($|_|-|.)]{1,50}\@[a-zA-Z]{2,5}\.[a-zA-Z]{1,6}$/;
     if (regX.test(emailSignUpInp.value)) {
@@ -194,6 +204,8 @@ emailSignUpInp.addEventListener('change', function () {
    
 
 })
+// validation instructor's name to return your password 
+
 function hintSignUpInpValid(){
     var regX = /^[\w\s]{1,25}$/;
     if (regX.test(hintSignUpInp.value)) {
@@ -262,6 +274,7 @@ getPass.addEventListener('click', function () {
    
     
 })
+// validation name to sign up with condation 
 
 function userNameSignUpInpValid() {
     var regX = /^[A-Z][a-z0-9]{3,15}$/;
@@ -289,6 +302,8 @@ userNameSignUpInp.addEventListener('change',function () {
         
     }
 })
+// validation password to sign up with condation 
+
 function passSignUpInpValid() {
     var regX = /^[\w]{6,15}$/;
     if (regX.test(passSignUpInp.value)) {
