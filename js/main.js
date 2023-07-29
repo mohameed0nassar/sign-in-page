@@ -29,8 +29,8 @@ if (localStorage.getItem("users") != null) {
   } else {
     var box = [];
 }
-if (localStorage.getItem("url") != null) {
-    pageOn = JSON.parse(localStorage.getItem("url"));
+if (sessionStorage.getItem("url") != null) {
+    pageOn = JSON.parse(sessionStorage.getItem("url"));
    var onPage = pageOn[0].on
    var off1Page = pageOn[0].off1
     var off2Page = pageOn[0].off2
@@ -59,7 +59,7 @@ function changePage(x="", y="", z="") {
 
 
     pageOn.splice(0,pageOn.length,page)
-    localStorage.setItem("url", JSON.stringify(pageOn))
+    sessionStorage.setItem("url", JSON.stringify(pageOn))
 
 
 }
