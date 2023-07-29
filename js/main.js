@@ -10,7 +10,7 @@ var signInSection = document.querySelector('#signUp a');
 var home = document.querySelector('#home');
 var logOutBtn = document.querySelector('nav .btn');
 var navBar = document.querySelector('nav')
-var routeLogo = document.querySelector('.col-11')
+var routeLogo = document.querySelector('#logo')
 var userNameSignUpInp = document.querySelector('#userNameSignUpInp')
 var emailSignUpInp = document.querySelector('#emailSignUpInp')
 var passSignUpInp = document.querySelector('#passSignUpInp')
@@ -22,34 +22,46 @@ var errorName = document.querySelector('.user-name')
 var emailUp = document.querySelector('.emailUp')
 var passUp = document.querySelector('.passUp')
 //local storage
-var box;
+var box , pageOn;
 //get data from local
 if (localStorage.getItem("users") != null) {
     box = JSON.parse(localStorage.getItem("users"));
   } else {
     var box = [];
 }
-// if (localStorage.getItem("url") != null) {
-//     window.location.pathname= localStorage.getItem("url");
-//   } 
+if (localStorage.getItem("url") != null) {
+    pageOn = JSON.parse(localStorage.getItem("url"));
+   var onPage = pageOn[0].on
+   var off1Page = pageOn[0].off1
+    var off2Page = pageOn[0].off2
+
+changePage(onPage,off1Page,off2Page)
+    
+  } else {
+    var pageOn = [];
+}
 //set data into local
 function setDis(nameKey = "", data = []) {
     localStorage.setItem(nameKey, JSON.stringify(data).toLowerCase());
   }
-function setUrl() {
-   
-    var mainUrl = window.location.pathname
-    localStorage.removeItem("url")
-    localStorage.setItem("url", mainUrl);
 
-
-}
 //simple SPA
-function changePage(x,y,z) {
-    x.classList.remove('d-none')
-    y.classList.add('d-none')
-    z.classList.add('d-none')
-    setUrl()
+function changePage(x="", y="", z="") {
+    document.querySelector(`#${x}`).classList.remove('d-none')
+    document.querySelector(`#${y}`).classList.add('d-none')
+    document.querySelector(`#${z}`).classList.add('d-none')
+
+    var page = {
+        on: x,
+        off1: y,
+        off2:z,
+    }
+
+
+    pageOn.splice(0,pageOn.length,page)
+    localStorage.setItem("url", JSON.stringify(pageOn))
+
+
 }
 //clear after procces
 function clearForm() {
@@ -62,7 +74,7 @@ function clearForm() {
   }
 //to sign in page
 signInSection.addEventListener('click', function () {
-    changePage(signIn, signUp, home)
+    changePage('signIn', 'signUp', 'home')
     clearForm()
     clearValid()
 
@@ -72,7 +84,7 @@ signInSection.addEventListener('click', function () {
 })
 //to sign up page
 signUpSection.addEventListener('click', function () {
-    changePage(signUp,signIn,home)
+    changePage('signUp','signIn','home')
     clearForm()
     clearValid()
     
@@ -80,7 +92,7 @@ signUpSection.addEventListener('click', function () {
 })
 //loge from profile to sign in
 logOutBtn.addEventListener('click', function () {
-    changePage(signIn,home,signUp)
+    changePage('signIn','home','signUp')
     routeLogo.classList.remove('d-none')
     clearForm()
     clearValid()
@@ -158,7 +170,7 @@ signInBtn.addEventListener('click',function () {
         
     }
     if (v == true) {
-        changePage(home,routeLogo,signIn)
+        changePage('home','logo','signIn')
         displayUserName(n)
         clearForm()
     } else {
